@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <omp.h>
+#include <math.h>
+
 
 int rechercheDichotomique(int valeurRecherchee, int tab[], int indDebut, int indFin) {
 	int indMilieu;
@@ -15,7 +17,8 @@ int rechercheDichotomique(int valeurRecherchee, int tab[], int indDebut, int ind
 	return -1;
 }
 
-void fusion(int T[], int p1, int r1, int A[], int p2, int r2, int p3) {
+
+void parallele_fusion(int T[], int p1, int r1, int A[], int p2, int r2, int p3) {
 	int n1 = r1 - p1 + 1;
 	int n2 = r2 - p2 + 1;
 
@@ -38,10 +41,25 @@ void fusion(int T[], int p1, int r1, int A[], int p2, int r2, int p3) {
 		if (q2 == -1) return; // Erreur
 		int q3 = p3 + (q1 - p1) + (q2 - p2);
 		A[q3] = T[q1];
-		fusion(T, p1, q1 - 1, A, p2, q2 - 1, p3);
-		fusion(T, q1 + 1, r1, A, q2, r2, q3 + 1);
+		parallele_fusion(T, p1, q1 - 1, A, p2, q2 - 1, p3);
+		parallele_fusion(T, q1 + 1, r1, A, q2, r2, q3 + 1);
 	}
 }
+
+
+void fusion(int U[], int n, int V[], int m, int T[]){
+	int i = 0;
+	int j = 0;
+	U[n] = V[m] = pow(2, (8 * sizeof(int))-2);
+	printf("%d", U[n]);
+	for (int k = 0; i < n + m; k++){
+		if (U[i] < V[j])
+			T[k] = U[i++];
+		else
+			T[k] = V[j++];
+	}
+}
+
 
 int main() {
 	printf("Hello world !\n");
@@ -57,8 +75,20 @@ int main() {
 		printf("%d\n", a);
 	}
 
+
+	//Vérification de la fonction fusion séquentielle
+	int resultat[(sizeof T + sizeof A) / sizeof(int)];
+	fusion(T, sizeof T / sizeof(int), A, sizeof A / sizeof(int), resultat);
+	length = sizeof resultat / (sizeof(int));
+	printf("Taille = %d\n", length);
+	for (int i = 0; i < length; i++)
+	{
+		printf("%d\n", resultat[i]);
+	}
+
+
 	/*
-	fusion(T, 0, 1, A, 0, 1, 0);
+	parallele_fusion(T, 0, 1, A, 0, 1, 0);
 
 	length = 2 * sizeof A / (sizeof(int));
 	for (int i = 0; i < length; i++)
