@@ -24,13 +24,11 @@ void fusion(int U[], int n, int V[], int m, int T[]){
 }
 
 int main() {
+  // Initialisation des tableaux
   int n = 13;
 	int U[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
   int m = 13;
 	int V[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
-
-	int T[n + m];
-	fusion(U, n, V, m, T);
 
   printf("U : ");
   for(int i = 0; i < n; i++)
@@ -42,6 +40,11 @@ int main() {
     printf("%d ", V[i]);
   printf("\n");
 
+  // Fusion séquentielle
+	int T[n + m];
+	fusion(U, n, V, m, T);
+
+  // Affichage du résultat
   printf("T : ");
 	for(int i = 0; i < n + m; i++)
 		printf("%d ", T[i]);
