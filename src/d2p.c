@@ -16,7 +16,7 @@ int recherche_dichotomique(int valeur_recherchee, int tab[], int ind_debut, int 
 	return -1;
 }
 
-void parallele_fusion(int T[], int p1, int r1, int A[], int p2, int r2, int p3) {
+void fusion(int T[], int p1, int r1, int A[], int p2, int r2, int p3) {
 	int n1 = r1 - p1 + 1;
 	int n2 = r2 - p2 + 1;
 
@@ -39,8 +39,8 @@ void parallele_fusion(int T[], int p1, int r1, int A[], int p2, int r2, int p3) 
 		if (q2 == -1) return; // Erreur
 		int q3 = p3 + (q1 - p1) + (q2 - p2);
 		A[q3] = T[q1];
-		parallele_fusion(T, p1, q1 - 1, A, p2, q2 - 1, p3);
-		parallele_fusion(T, q1 + 1, r1, A, q2, r2, q3 + 1);
+		fusion(T, p1, q1 - 1, A, p2, q2 - 1, p3);
+		fusion(T, q1 + 1, r1, A, q2, r2, q3 + 1);
 	}
 }
 
@@ -74,13 +74,22 @@ int main() {
   printf("\n");
 
   // Fusion parallèle
-	// parallele_fusion(U, 0, 1, V, 0, 1, 0);
+	int T[n + m];
+  // TODO: V doit avoir une taille plus grande
+	fusion(U, 0, 1, V, 0, 1, 0);
 
-	// length = 2 * sizeof V / (sizeof(int));
-	// for (int i = 0; i < length; i++)
-	// {
-	// 	printf("%d\n", V[i]);
-	// }
+	int length = 2 * sizeof V / (sizeof(int));
+	for (int i = 0; i < length; i++)
+	{
+		printf("%d ", V[i]);
+	}
+  printf("\n");
+
+  // Affichage du résultat
+  printf("T : ");
+	for(int i = 0; i < n + m; i++)
+		printf("%d ", T[i]);
+  printf("\n");
 
 	return EXIT_SUCCESS;
 }
