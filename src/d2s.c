@@ -1,34 +1,51 @@
 #include <stdio.h>
-#include <math.h>
+#include <stdlib.h>
 
 void fusion(int U[], int n, int V[], int m, int T[]){
 	int i = 0;
 	int j = 0;
-	U[n] = V[m] = pow(2, (8 * sizeof(int))-2);
-	printf("%d", U[n]);
-	for (int k = 0; i < n + m; k++){
-		if (U[i] < V[j])
-			T[k] = U[i++];
-		else
-			T[k] = V[j++];
+
+	for(int k = 0; k < n + m; k++) {
+    // Si on arrive au bout des tableaux
+    if(i == n && j == m)
+      return;
+    else if(i == n)
+      T[k] = V[j++];
+    else if(j == m)
+      T[k] = U[i++];
+    // Sinon
+    else {
+      if(U[i] < V[j])
+        T[k] = U[i++];
+      else
+        T[k] = V[j++];
+    }
 	}
 }
 
 int main() {
-	printf("Hello world !\n");
-	int T[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
-	int A[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+  int n = 13;
+	int U[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+  int m = 13;
+	int V[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 
-	//Vérification de la fonction fusion séquentielle
-	int resultat[(sizeof T + sizeof A) / sizeof(int)];
-	fusion(T, sizeof T / sizeof(int), A, sizeof A / sizeof(int), resultat);
-	int length = sizeof resultat / (sizeof(int));
-	printf("Taille = %d\n", length);
-	for (int i = 0; i < length; i++)
-	{
-		printf("%d\n", resultat[i]);
-	}
+	int T[n + m];
+	fusion(U, n, V, m, T);
 
-	// while (1);
-	return 0;
+  printf("U : ");
+  for(int i = 0; i < n; i++)
+    printf("%d ", U[i]);
+  printf("\n");
+
+  printf("V : ");
+  for(int i = 0; i < m; i++)
+    printf("%d ", V[i]);
+  printf("\n");
+
+  printf("T : ");
+	for(int i = 0; i < n + m; i++)
+		printf("%d ", T[i]);
+  printf("\n");
+
+	return EXIT_SUCCESS;
 }
