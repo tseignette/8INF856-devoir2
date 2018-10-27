@@ -1,17 +1,17 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <omp.h>
-#include <math.h>
 
-int rechercheDichotomique(int valeurRecherchee, int tab[], int indDebut, int indFin) {
-	int indMilieu;
-	while (indDebut <= indFin) {
-		indMilieu = (indFin + indDebut) / 2;
-		if (tab[indMilieu] == valeurRecherchee)
-			return indMilieu;
-		else if (valeurRecherchee > tab[indMilieu])
-			indDebut = indMilieu + 1;
+int recherche_dichotomique(int valeur_recherchee, int tab[], int ind_debut, int ind_fin) {
+	int ind_milieu;
+	while (ind_debut <= ind_fin) {
+		ind_milieu = (ind_fin + ind_debut) / 2;
+		if (tab[ind_milieu] == valeur_recherchee)
+			return ind_milieu;
+		else if (valeur_recherchee > tab[ind_milieu])
+			ind_debut = ind_milieu + 1;
 		else
-			indFin = indMilieu - 1;
+			ind_fin = ind_milieu - 1;
 	}
 	return -1;
 }
@@ -35,7 +35,7 @@ void parallele_fusion(int T[], int p1, int r1, int A[], int p2, int r2, int p3) 
 
 	if (n1 > 0) {
 		int q1 = (p1 + r1) / 2;
-		int q2 = rechercheDichotomique(T[q1], T, p2, r2);
+		int q2 = recherche_dichotomique(T[q1], T, p2, r2);
 		if (q2 == -1) return; // Erreur
 		int q3 = p3 + (q1 - p1) + (q2 - p2);
 		A[q3] = T[q1];
@@ -45,27 +45,42 @@ void parallele_fusion(int T[], int p1, int r1, int A[], int p2, int r2, int p3) 
 }
 
 int main() {
-	printf("Hello world !\n");
-	int T[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
-	int A[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
-	//V�rification que rechercheDichotomique fonctionne correctement
+  // Initialisation des tableaux
+  int n = 13;
+	int U[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+  int m = 13;
+	int V[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+
+  printf("U : ");
+  for(int i = 0; i < n; i++)
+    printf("%d ", U[i]);
+  printf("\n");
+
+  printf("V : ");
+  for(int i = 0; i < m; i++)
+    printf("%d ", V[i]);
+  printf("\n");
+
+	// Vérification que la recherche dichotomique fonctionne correctement
+  // On teste la recherche sur une valeau qui n'existe pas puis sur
+  // toutes les autres valeurs par ordre décroissant
 	int a;
-	int length = sizeof T / (sizeof(int));
-	printf("Taille = %d\n", length);
-	for (int i = 0; i < length; i++)
+  printf("Résultats recherche dich. : ");
+	for (int i = n; i >= 0; i--)
 	{
-		a = rechercheDichotomique(i, T, 0, length);
-		printf("%d\n", a);
+		a = recherche_dichotomique(i, U, 0, n);
+		printf("%d ", a);
 	}
+  printf("\n");
 
+  // Fusion parallèle
+	// parallele_fusion(U, 0, 1, V, 0, 1, 0);
 
-	parallele_fusion(T, 0, 1, A, 0, 1, 0);
+	// length = 2 * sizeof V / (sizeof(int));
+	// for (int i = 0; i < length; i++)
+	// {
+	// 	printf("%d\n", V[i]);
+	// }
 
-	length = 2 * sizeof A / (sizeof(int));
-	for (int i = 0; i < length; i++)
-	{
-		printf("%d\n", A[i]);
-	}
-
-	return 0;
+	return EXIT_SUCCESS;
 }
