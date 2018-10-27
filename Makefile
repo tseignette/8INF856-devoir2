@@ -1,16 +1,15 @@
 CC = gcc
 CFLAGS = -Wall -std=c99
 
-all: build/main.o
-	$(CC) $(CFLAGS) -fopenmp $^ -o bin/a.out
+all: d2s d2p
 
-tst: build/test_parser.o build/parser.o build/useful.o
-	$(CC) $(CFLAGS) $^ -o bin/tst
+d2s: build/d2s.o
+	$(CC) $(CFLAGS) $^ -o bin/d2s
+
+d2p: build/d2p.o
+	$(CC) $(CFLAGS) -fopenmp $^ -o bin/d2p
 
 build/%.o: src/%.c
-	$(CC) -c $(CFLAGS) $< -o $@
-
-build/%.o: tst/%.c
 	$(CC) -c $(CFLAGS) $< -o $@
 
 clean:
