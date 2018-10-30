@@ -97,7 +97,7 @@ int main(int argc, char *argv[]) {
 
     // Fusion parallèle
     double start = omp_get_wtime();
-		#pragma omp parallel num_threads(1)
+		#pragma omp parallel num_threads(4)
 		fusion(T, 0, n - 1, n, 2 * n, A, 0);
     double end = omp_get_wtime();
 
