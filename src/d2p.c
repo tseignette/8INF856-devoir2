@@ -65,7 +65,7 @@ int get_next_number(char *input, int *offset) {
   return atoi(n);
 }
 
-int main() {
+int main(int argc, char *argv[]) {
   // On lit le fichier test
   char *file = 0;
   long length;
@@ -86,8 +86,7 @@ int main() {
     for(int i = 0; i < 2 * n; i++) T[i] = get_next_number(file, &offset);
 
 		// Nombre de threads
-		int nbthreads;
-		scanf("%d", &nbthreads);
+		int nbthreads = atoi(argv[1]);
 
 		// printf("T1 : ");
 		// for(int i = 0; i < n; i++)
