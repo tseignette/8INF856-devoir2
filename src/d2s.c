@@ -1,3 +1,4 @@
+#include <omp.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -55,7 +56,6 @@ int main(int argc, char *argv[]) {
     // Initialisation des tableaux
     int offset = 0;
     int n = get_next_number(file, &offset);
-
     int m = n;
     int U[n];
     int V[n];
@@ -63,26 +63,17 @@ int main(int argc, char *argv[]) {
     for(int i = 0; i < n; i++) U[i] = get_next_number(file, &offset);
     for(int i = 0; i < n; i++) V[i] = get_next_number(file, &offset);
 
-    printf("\nU : ");
-    for(int i = 0; i < n; i++)
-      printf("%d ", U[i]);
-    printf("\n");
-
-    printf("\nV : ");
-    for(int i = 0; i < m; i++)
-      printf("%d ", V[i]);
-    printf("\n");
-
     // Fusion séquentielle
     int T[n + m];
+    double start = omp_get_wtime();
     fusion(U, n, V, m, T);
+    double end = omp_get_wtime();
 
-    // Affichage du résultat
-    printf("\nT : ");
-    for(int i = 0; i < n + m; i++)
-      printf("%d ", T[i]);
-    printf("\n");
+    // Affichage du temps
+    printf("%f\n", end - start);
   }
+
+  free(file);
 
 	return EXIT_SUCCESS;
 }
