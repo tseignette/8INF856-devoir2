@@ -6,6 +6,7 @@
 
 # Fichier test
 fichier_test
+output.txt
 
 # Prerequisites
 *.d

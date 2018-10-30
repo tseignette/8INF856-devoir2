@@ -4,14 +4,14 @@
 
 int main(int argc, char *argv[]) {
   if(argc != 2) {
-    printf("Wrong usage, example: ./generator 25\n");
+    printf("Wrong usage: ./bin/generator [array_size]\n");
     return EXIT_FAILURE;
   }
 
   int n = atoi(argv[1]);
   srand(time(NULL));
 
-  FILE *file = fopen("fichier_test", "w");
+  FILE *file = fopen("./test/fichier_test", "w");
 
   fprintf(file, "%d", n);
 
