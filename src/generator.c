@@ -16,14 +16,14 @@ int main(int argc, char *argv[]) {
   fprintf(file, "%d", n);
 
   // Premier tableau
-  int num = rand() % (100000 + 1);
+  int num = rand() % (10000 + 1);
   for(int i = 0; i < n; i++) {
     num += rand() % (1000 + 1);
     fprintf(file, " %d", num);
   }
 
   // Deuxième tableau
-  num = rand() % (100000 + 1);
+  num = rand() % (10000 + 1);
   for(int i = 0; i < n; i++) {
     num += rand() % (1000 + 1);
     fprintf(file, " %d", num);
