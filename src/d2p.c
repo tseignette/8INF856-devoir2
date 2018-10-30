@@ -1,6 +1,10 @@
+#include <omp.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <omp.h>
+#include <string.h>
+
+int U[100000000];
+int V[100000000];
 
 int recherche_dichotomique(int valeur_recherchee, int tab[], int ind_debut, int ind_fin) {
 	int ind_milieu;
@@ -44,52 +48,68 @@ void fusion(int T[], int p1, int r1, int A[], int p2, int r2, int p3) {
 	}
 }
 
+int get_next_number(char *input, int *offset) {
+  input += *offset;
+
+  int length = 0;
+  while((*(input + length) != ' ') && (*(input + length) != '\0')) length++;
+
+  char n[length + 1];
+  n[length] = '\0';
+  strncpy(n, input, length);
+  *offset += length + 1;
+
+  return atoi(n);
+}
+
 int main() {
-  // Initialisation des tableaux
-  int n = 13;
-	int U[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
-  int m = 13;
-	int V[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+  // On lit le fichier test
+  char *file = 0;
+  long length;
 
-  printf("U : ");
-  for(int i = 0; i < n; i++)
-    printf("%d ", U[i]);
-  printf("\n");
+  if(stdin) {
+    fseek(stdin, 0, SEEK_END);
+    length = ftell(stdin);
+    fseek(stdin, 0, SEEK_SET);
+    file = malloc(length);
+    if(file) fread(file, 1, length, stdin);
+  }
 
-  printf("V : ");
-  for(int i = 0; i < m; i++)
-    printf("%d ", V[i]);
-  printf("\n");
+  if(file) {
+    // Initialisation des tableaux
+    int offset = 0;
+    int n = get_next_number(file, &offset);
+    int m = n;
 
-	// Vérification que la recherche dichotomique fonctionne correctement
-  // On teste la recherche sur une valeau qui n'existe pas puis sur
-  // toutes les autres valeurs par ordre décroissant
-	int a;
-  printf("Résultats recherche dich. : ");
-	for (int i = n; i >= 0; i--)
-	{
-		a = recherche_dichotomique(i, U, 0, n);
-		printf("%d ", a);
-	}
-  printf("\n");
+    for(int i = 0; i < n; i++) U[i] = get_next_number(file, &offset);
+    for(int i = 0; i < n; i++) V[i] = get_next_number(file, &offset);
 
-  // Fusion parallèle
-	int T[n + m];
-  // TODO: V doit avoir une taille plus grande
-	fusion(U, 0, 1, V, 0, 1, 0);
+		printf("U : ");
+		for(int i = 0; i < n; i++)
+			printf("%d ", U[i]);
+		printf("\n");
 
-	int length = 2 * sizeof V / (sizeof(int));
-	for (int i = 0; i < length; i++)
-	{
-		printf("%d ", V[i]);
-	}
-  printf("\n");
+		printf("V : ");
+		for(int i = 0; i < m; i++)
+			printf("%d ", V[i]);
+		printf("\n");
 
-  // Affichage du résultat
-  printf("T : ");
-	for(int i = 0; i < n + m; i++)
-		printf("%d ", T[i]);
-  printf("\n");
+    // Fusion séquentielle
+    double start = omp_get_wtime();
+		fusion(U, 0, 1, V, 0, 1, 0);
+    double end = omp_get_wtime();
+
+		// Affichage du résultat
+		printf("V : ");
+		for(int i = 0; i < n + m; i++)
+			printf("%d ", V[i]);
+		printf("\n");
+
+    // Affichage du temps
+    printf("%f\n", end - start);
+  }
+
+  free(file);
 
 	return EXIT_SUCCESS;
 }
