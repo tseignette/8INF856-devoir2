@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-int T[1000000000];
-int A[1000000000];
+int T[100000000];
+int A[100000000];
 
 void interchanger(int *a, int *b) {
 	int a_tmp = *a;
