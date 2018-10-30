@@ -15,7 +15,19 @@ int main(int argc, char *argv[]) {
 
   fprintf(file, "%d", n);
 
-  for(int i = 0; i < 2 * n; i++) fprintf(file, " %d", rand());
+  // Premier tableau
+  int num = rand() % (100000 + 1);
+  for(int i = 0; i < n; i++) {
+    num += rand() % (1000 + 1);
+    fprintf(file, " %d", num);
+  }
+
+  // Deuxième tableau
+  num = rand() % (100000 + 1);
+  for(int i = 0; i < n; i++) {
+    num += rand() % (1000 + 1);
+    fprintf(file, " %d", num);
+  }
 
   fclose(file);
 
