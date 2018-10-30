@@ -3,9 +3,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-int *U;
-int *V;
-int *T;
+int U[1000000000];
+int V[1000000000];
+int T[1000000000];
 
 void fusion(int U[], int n, int V[], int m, int T[]){
 	int i = 0;
@@ -61,24 +61,17 @@ int main(int argc, char *argv[]) {
     int offset = 0;
     int n = get_next_number(file, &offset);
     int m = n;
-    U = malloc(n * sizeof(int));
-    V = malloc(m * sizeof(int));
 
     for(int i = 0; i < n; i++) U[i] = get_next_number(file, &offset);
     for(int i = 0; i < n; i++) V[i] = get_next_number(file, &offset);
 
     // Fusion séquentielle
-    T = malloc((n + m) * sizeof(int));
     double start = omp_get_wtime();
     fusion(U, n, V, m, T);
     double end = omp_get_wtime();
 
     // Affichage du temps
     printf("%f\n", end - start);
-
-    free(U);
-    free(V);
-    free(T);
   }
 
   free(file);
