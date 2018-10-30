@@ -3,9 +3,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-int U[1000000000];
-int V[1000000000];
-int T[1000000000];
+int U[100000000];
+int V[100000000];
+int T[100000000];
 
 void fusion(int U[], int n, int V[], int m, int T[]){
 	int i = 0;
