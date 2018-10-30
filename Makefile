@@ -1,7 +1,10 @@
 CC = gcc
 CFLAGS = -Wall -std=c99
 
-all: d2s d2p
+all: d2s d2p generator
+
+generator: build/generator.o
+	$(CC) $(CFLAGS) $^ -o bin/generator
 
 d2s: build/d2s.o
 	$(CC) $(CFLAGS) $^ -o bin/d2s
