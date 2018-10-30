@@ -4,6 +4,9 @@
 # VS Code
 .vscode
 
+# Fichier test
+fichier_test
+
 # Prerequisites
 *.d
 
