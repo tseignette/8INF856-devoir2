@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $# -ne 4 ]; then
+if [ $# -ne 2 ]; then
   echo "Wrong usage: ./test/launch_test [d2s|d2p] [nb_tests]"
   exit
 fi
