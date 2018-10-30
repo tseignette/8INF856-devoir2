@@ -7,7 +7,7 @@ fi
 
 echo -n > test/output.txt
 
-for i in $(seq 1 $4); do
+for i in $(seq 1 $2); do
   if [ "$1" == "d2s" ]; then
     ./bin/d2s < ./test/fichier_test >> test/output.txt
   else
