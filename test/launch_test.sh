@@ -1,11 +1,9 @@
 #!/bin/bash
 
 if [ $# -ne 4 ]; then
-  echo "Wrong usage: ./test/launch_test [d2s|d2p] [array_size] [nb_threads] [nb_tests]"
+  echo "Wrong usage: ./test/launch_test [d2s|d2p] [nb_tests]"
   exit
 fi
-
-./bin/generator $2
 
 echo -n > test/output.txt
 
