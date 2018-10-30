@@ -85,9 +85,6 @@ int main(int argc, char *argv[]) {
 
     for(int i = 0; i < 2 * n; i++) T[i] = get_next_number(file, &offset);
 
-		// Nombre de threads
-		int nbthreads = atoi(argv[1]);
-
 		// printf("T1 : ");
 		// for(int i = 0; i < n; i++)
 		// 	printf("%d ", T[i]);
@@ -100,7 +97,7 @@ int main(int argc, char *argv[]) {
 
     // Fusion parallèle
     double start = omp_get_wtime();
-		#pragma omp parallel num_threads(nbthreads)
+		#pragma omp parallel num_threads(16)
 		fusion(T, 0, n - 1, n, 2 * n, A, 0);
     double end = omp_get_wtime();
 
