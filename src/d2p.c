@@ -14,6 +14,7 @@ void interchanger(int *a, int *b) {
 }
 
 int recherche_dichotomique(int valeur_recherchee, int tab[], int ind_debut, int ind_fin) {
+	ind_fin++;
 	if(ind_debut > ind_fin) ind_fin = ind_debut;
 
 	while(ind_debut < ind_fin) {
@@ -85,30 +86,29 @@ int main(int argc, char *argv[]) {
 
     for(int i = 0; i < 2 * n; i++) T[i] = get_next_number(file, &offset);
 
-		// printf("T1 : ");
-		// for(int i = 0; i < n; i++)
-		// 	printf("%d ", T[i]);
-		// printf("\n");
-
-		// printf("T2 : ");
-		// for(int i = n; i < 2 * n; i++)
-		// 	printf("%d ", T[i]);
-		// printf("\n");
-
     // Fusion parallèle
     double start = omp_get_wtime();
-		#pragma omp parallel num_threads(48)
-		fusion(T, 0, n - 1, n, 2 * n, A, 0);
+		#pragma omp parallel num_threads(2)
+		fusion(T, 0, n - 1, n, 2 * n - 1, A, 0);
     double end = omp_get_wtime();
 
-		// // Affichage du résultat
-		// printf("A : ");
-		// for(int i = 0; i < 2 * n; i++)
-		// 	printf("%d ", A[i]);
-		// printf("\n");
-
+    // TODO: à enlever pour le rendu
     // Affichage du temps
     printf("%f\n", end - start);
+
+    // TODO: à enlever pour le rendu
+    // Vérification du tableau
+    for(int i = 1; i < 2 * n; i++) {
+      if(A[i - 1] > A[i]) {
+        printf("Tableau trié incorrect %d\n", i);
+        return EXIT_FAILURE;
+      }
+		}
+
+		// Affichage du résultat
+		for(int i = 0; i < 2 * n; i++)
+			printf("%d ", A[i]);
+		printf("\n");
   }
 
   free(file);
