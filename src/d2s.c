@@ -70,8 +70,22 @@ int main(int argc, char *argv[]) {
     fusion(U, n, V, m, T);
     double end = omp_get_wtime();
 
+    // TODO: à enlever pour le rendu
     // Affichage du temps
     printf("%f\n", end - start);
+
+    // TODO: à enlever pour le rendu
+    // Vérification du tableau
+    for(int i = 1; i < n + m; i++)
+      if(T[i - 1] > T[i]) {
+        printf("Tableau trié incorrect\n");
+        return EXIT_FAILURE;
+      }
+
+		// Affichage du résultat
+		for(int i = 0; i < n + m; i++)
+			printf("%d ", T[i]);
+		printf("\n");
   }
 
   free(file);
