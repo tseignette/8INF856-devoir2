@@ -76,11 +76,12 @@ int main(int argc, char *argv[]) {
 
     // TODO: à enlever pour le rendu
     // Vérification du tableau
-    for(int i = 1; i < n + m; i++)
+    for(int i = 1; i < n + m; i++) {
       if(T[i - 1] > T[i]) {
-        printf("Tableau trié incorrect\n");
+        printf("Tableau trié incorrect %d\n", i);
         return EXIT_FAILURE;
       }
+    }
 
 		// Affichage du résultat
 		for(int i = 0; i < n + m; i++)
