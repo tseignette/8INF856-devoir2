@@ -3,8 +3,31 @@
 #include <stdlib.h>
 #include <string.h>
 
+int LIMIT = 1000;
 int T[100000000];
 int A[100000000];
+
+void fusion_sequentielle(int U[], int n, int V[], int m, int T[]){
+	int i = 0;
+	int j = 0;
+
+	for(int k = 0; k < n + m; k++) {
+    // Si on arrive au bout des tableaux
+    if(i == n && j == m)
+      return;
+    else if(i == n)
+      T[k] = V[j++];
+    else if(j == m)
+      T[k] = U[i++];
+    // Sinon
+    else {
+      if(U[i] < V[j])
+        T[k] = U[i++];
+      else
+        T[k] = V[j++];
+    }
+	}
+}
 
 void interchanger(int *a, int *b) {
 	int a_tmp = *a;
@@ -45,10 +68,16 @@ void fusion(int T[], int p1, int r1, int p2, int r2, int A[], int p3) {
 		int q2 = recherche_dichotomique(T[q1], T, p2, r2);
 		int q3 = p3 + (q1 - p1) + (q2 - p2);
 		A[q3] = T[q1];
-		#pragma omp task
-		fusion(T, p1, q1 - 1, p2, q2 - 1, A, p3);
-		#pragma omp task
-		fusion(T, q1 + 1, r1, q2, r2, A, q3 + 1);
+		if(q3 - p3 < LIMIT) fusion_sequentielle(&T[p1], q1 - p1, &T[p2], q2 - p2, &A[p3]);
+		else {
+			#pragma omp task
+			fusion(T, p1, q1 - 1, p2, q2 - 1, A, p3);
+		}
+		if(r1 - q1 + r2 - q1 < LIMIT) fusion_sequentielle(&T[q1 + 1], r1 - q1, &T[q2], r2 - q2 + 1, &A[q3 + 1]);
+		else {
+			#pragma omp task
+			fusion(T, q1 + 1, r1, q2, r2, A, q3 + 1);
+		}
 	}
 }
 
