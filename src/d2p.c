@@ -4,7 +4,7 @@
 #include <string.h>
 
 #ifndef NB_THREADS
-  #define NB_THREADS 4 // TODO: changer en fonction du nombre de threads optimal trouvé
+  #define NB_THREADS 4
 #endif
 #ifndef LIMIT
   #define LIMIT 10000
@@ -16,7 +16,8 @@ void fusion_sequentielle(int U[], int n, int V[], int m, int T[]) {
 	int i = 0;
 	int j = 0;
 
-	for(int k = 0; k < n + m; k++) {
+  int k = 0;
+	for(k = 0; k < n + m; k++) {
     // Si on arrive au bout des tableaux
     if(i == n && j == m)
       return;
@@ -118,7 +119,8 @@ int main(int argc, char *argv[]) {
     int offset = 0;
     int n = get_next_number(file, &offset);
 
-    for(int i = 0; i < 2 * n; i++) T[i] = get_next_number(file, &offset);
+    int i = 0;
+    for(i = 0; i < 2 * n; i++) T[i] = get_next_number(file, &offset);
 
     // Fusion parallèle
     double start = omp_get_wtime();
@@ -127,7 +129,7 @@ int main(int argc, char *argv[]) {
     double end = omp_get_wtime();
 
     // Vérification du tableau
-    for(int i = 1; i < 2 * n; i++) {
+    for(i = 1; i < 2 * n; i++) {
       if(A[i - 1] > A[i]) {
         printf("Tableau trié incorrect à l'indice %d ; A[i - 1] = %d ; A[i] = %d\n", i, A[i - 1], A[i]);
         return EXIT_FAILURE;
@@ -140,7 +142,7 @@ int main(int argc, char *argv[]) {
       printf("%.8f\n", elapsed_time);
     #else
       // Affichage du résultat
-      for(int i = 0; i < 2 * n; i++)
+      for(i = 0; i < 2 * n; i++)
         printf("%d ", A[i]);
       printf("\n");
     #endif

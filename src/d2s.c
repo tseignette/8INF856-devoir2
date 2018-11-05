@@ -11,7 +11,8 @@ void fusion(int U[], int n, int V[], int m, int T[]) {
 	int i = 0;
 	int j = 0;
 
-	for(int k = 0; k < n + m; k++) {
+  int k = 0;
+	for(k = 0; k < n + m; k++) {
     // Si on arrive au bout des tableaux
     if(i == n && j == m)
       return;
@@ -62,8 +63,9 @@ int main(int argc, char *argv[]) {
     int n = get_next_number(file, &offset);
     int m = n;
 
-    for(int i = 0; i < n; i++) U[i] = get_next_number(file, &offset);
-    for(int i = 0; i < n; i++) V[i] = get_next_number(file, &offset);
+    int i = 0;
+    for(i = 0; i < n; i++) U[i] = get_next_number(file, &offset);
+    for(i = 0; i < n; i++) V[i] = get_next_number(file, &offset);
 
     // Fusion séquentielle
     double start = omp_get_wtime();
@@ -71,7 +73,7 @@ int main(int argc, char *argv[]) {
     double end = omp_get_wtime();
 
     // Vérification du tableau
-    for(int i = 1; i < n + m; i++) {
+    for(i = 1; i < n + m; i++) {
       if(T[i - 1] > T[i]) {
         printf("Tableau trié incorrect %d\n", i);
         return EXIT_FAILURE;
@@ -84,7 +86,7 @@ int main(int argc, char *argv[]) {
       printf("%.8f\n", elapsed_time);
     #else
       // Affichage du résultat
-      for(int i = 0; i < n + m; i++)
+      for(i = 0; i < n + m; i++)
         printf("%d ", T[i]);
       printf("\n");
     #endif
