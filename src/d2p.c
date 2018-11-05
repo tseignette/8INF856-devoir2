@@ -136,8 +136,8 @@ int main(int argc, char *argv[]) {
 
     #ifdef TEST
       // Affichage du temps
-      double elapsed_time = (end - start) * 100000000;
-      printf("%f\n", elapsed_time);
+      double elapsed_time = (end - start);
+      printf("%.8f\n", elapsed_time);
     #else
       // Affichage du résultat
       for(int i = 0; i < 2 * n; i++)
