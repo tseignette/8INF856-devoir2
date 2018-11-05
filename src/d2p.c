@@ -73,12 +73,12 @@ void fusion(int T[], int p1, int r1, int p2, int r2, int A[], int p3) {
 		int q2 = recherche_dichotomique(T[q1], T, p2, r2);
 		int q3 = p3 + (q1 - p1) + (q2 - p2);
 		A[q3] = T[q1];
-		if(q3 - p3 < LIMIT) fusion_sequentielle(&T[p1], q1 - p1, &T[p2], q2 - p2, &A[p3]);
+		if((q1 - p1 + q2 - p2) < LIMIT) fusion_sequentielle(&T[p1], q1 - p1, &T[p2], q2 - p2, &A[p3]);
 		else {
 			#pragma omp task
 			fusion(T, p1, q1 - 1, p2, q2 - 1, A, p3);
 		}
-		if(r1 - q1 + r2 - q1 < LIMIT) fusion_sequentielle(&T[q1 + 1], r1 - q1, &T[q2], r2 - q2 + 1, &A[q3 + 1]);
+		if((r1 - q1 + r2 - q2 + 1) < LIMIT) fusion_sequentielle(&T[q1 + 1], r1 - q1, &T[q2], r2 - q2 + 1, &A[q3 + 1]);
 		else {
 			#pragma omp task
 			fusion(T, q1 + 1, r1, q2, r2, A, q3 + 1);
