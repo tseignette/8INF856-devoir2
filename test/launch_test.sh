@@ -6,9 +6,8 @@ if [ $# -ne 5 ]; then
 fi
 
 make clean
-make generator
-./bin/generator "$3"
-moy=0
+# make generator
+# ./bin/generator "$3"
 
 if [ "$1" == "d2s" ]; then
   make d2s FLAG=-DTEST
