@@ -136,7 +136,6 @@ int main(int argc, char *argv[]) {
 
     #ifdef TEST
       // Affichage du temps
-      printf("Thread nb: %d; limit: %d\n", NB_THREADS, LIMIT);
       printf("%f\n", end - start);
     #else
       // Affichage du résultat
