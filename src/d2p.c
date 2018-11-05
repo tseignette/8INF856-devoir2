@@ -9,8 +9,8 @@
 #ifndef LIMIT
   #define LIMIT 1000 // TODO: changer en fonction de la limite optimale trouvée
 #endif
-int T[1000000000];
-int A[1000000000];
+int T[500000000];
+int A[500000000];
 
 void fusion_sequentielle(int U[], int n, int V[], int m, int T[]) {
 	int i = 0;
