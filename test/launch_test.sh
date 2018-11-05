@@ -18,11 +18,8 @@ fi
 
 for i in $(seq 1 $2); do
   if [ "$1" == "d2s" ]; then
-    moy=$((moy+`./bin/d2s < ./test/fichier_test | tr . ,`))
+    ./bin/d2s < ./test/fichier_test | tr . ,
   else
-    moy=$((moy+`./bin/d2p < ./test/fichier_test | tr . ,`))
+    ./bin/d2p < ./test/fichier_test | tr . ,
   fi
 done
-
-moy=$((moy/$2))
-echo $moy
