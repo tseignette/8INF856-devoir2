@@ -25,4 +25,4 @@ for i in $(seq 1 $2); do
 done
 
 moy=$((moy/$2))
-bc -l <<< "$moy/100000000"
+echo $moy
