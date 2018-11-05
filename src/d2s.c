@@ -7,7 +7,7 @@ int U[100000000];
 int V[100000000];
 int T[100000000];
 
-void fusion(int U[], int n, int V[], int m, int T[]){
+void fusion(int U[], int n, int V[], int m, int T[]) {
 	int i = 0;
 	int j = 0;
 
@@ -70,11 +70,6 @@ int main(int argc, char *argv[]) {
     fusion(U, n, V, m, T);
     double end = omp_get_wtime();
 
-    // TODO: à enlever pour le rendu
-    // Affichage du temps
-    printf("%f\n", end - start);
-
-    // TODO: à enlever pour le rendu
     // Vérification du tableau
     for(int i = 1; i < n + m; i++) {
       if(T[i - 1] > T[i]) {
@@ -83,10 +78,15 @@ int main(int argc, char *argv[]) {
       }
     }
 
-		// Affichage du résultat
-		for(int i = 0; i < n + m; i++)
-			printf("%d ", T[i]);
-		printf("\n");
+    #ifdef TEST
+      // Affichage du temps
+      printf("%f\n", end - start);
+    #else
+      // Affichage du résultat
+      for(int i = 0; i < n + m; i++)
+        printf("%d ", T[i]);
+      printf("\n");
+    #endif
   }
 
   free(file);

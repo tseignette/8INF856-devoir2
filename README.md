@@ -11,5 +11,7 @@ Les exécutables créés prennent respectivement le nom de ``d2s``, ``d2p`` et `
 ## Générateur de tableau
 ``./bin/generator 1000`` pour générer deux tableaux triés de longueur 1000. Ils se situent dans le fichier ``./test/fichier_test``. Le premier nombre est la longueur du tableau.
 
-## Lanceur de test
-``./test/launch_test.sh d2p 1000000 8 50`` pour générer deux tableaux de 1000000 éléménts puis lancer la version parallèle 50 fois avec 8 threads. Le générateur et les deux versions de l'algorithme doivent être compilés avant de lancer ce script.
+## Test
+Il est possible de compiler en mode test pour afficher le temps d'exécution au lieu du tableau de sortie : ``make d2s FLAG=-DTEST``. Pour la version parallèle, on peut aussi passer le nombre de threads et la limite avant d'utiliser l'algorithme séquentiel : ``make d2p FLAG="-DTEST -DNB_THREADS=8 -DLIMIT=10000"``.
+
+``./test/launch_test.sh d2p 50`` pour lancer la version parallèle 50 fois. Le générateur et les deux versions de l'algorithme doivent être compilés avant de lancer ce script.

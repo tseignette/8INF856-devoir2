@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -std=c99 -fopenmp
+CFLAGS = -Wall -std=c99 -fopenmp $(FLAG)
 
 all: d2s d2p generator
 
