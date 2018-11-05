@@ -14,4 +14,4 @@ Les exécutables créés prennent respectivement le nom de ``d2s``, ``d2p`` et `
 ## Test
 Il est possible de compiler en mode test pour afficher le temps d'exécution au lieu du tableau de sortie : ``make d2s FLAG=-DTEST``. Pour la version parallèle, on peut aussi passer le nombre de threads et la limite avant d'utiliser l'algorithme séquentiel : ``make d2p FLAG="-DTEST -DNB_THREADS=8 -DLIMIT=10000"``.
 
-``./test/launch_test.sh d2p 50 10000 1000 16`` pour lancer la version parallèle 50 fois sur un tableau de taille 10000, une limite avant de lancer l'algorithme séquentiel de 1000 et avec 16 threads.
+``./test/launch_test.sh d2p 50 10000 1000 16`` pour lancer la version parallèle 50 fois avec une limite avant de lancer l'algorithme séquentiel de 1000 et 16 threads. La génération du fichier de test doit être effectuée manuellement avant.
