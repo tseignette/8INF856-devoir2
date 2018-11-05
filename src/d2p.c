@@ -7,7 +7,7 @@
   #define NB_THREADS 4 // TODO: changer en fonction du nombre de threads optimal trouvé
 #endif
 #ifndef LIMIT
-  #define LIMIT 1000 // TODO: changer en fonction de la limite optimale trouvée
+  #define LIMIT 10000
 #endif
 int T[500000000];
 int A[500000000];
