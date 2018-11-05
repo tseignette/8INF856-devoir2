@@ -129,7 +129,7 @@ int main(int argc, char *argv[]) {
     // Vérification du tableau
     for(int i = 1; i < 2 * n; i++) {
       if(A[i - 1] > A[i]) {
-        printf("Tableau trié incorrect %d\n", i);
+        printf("Tableau trié incorrect à l'indice %d ; A[i - 1] = %d ; A[i] = %d\n", i, A[i - 1], A[i]);
         return EXIT_FAILURE;
       }
     }
